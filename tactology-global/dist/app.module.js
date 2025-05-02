@@ -26,10 +26,16 @@ exports.AppModule = AppModule = __decorate([
                 autoSchemaFile: true,
             }),
             typeorm_1.TypeOrmModule.forRoot({
-                type: 'sqlite',
-                database: 'db.sqlite',
+                type: "postgres",
+                url: "postgresql://tactologydb_user:DNJlO081rWxEIJ4EcNUjYcbOdq0PlYUl@dpg-d0a7u78gjchc73btkorg-a.oregon-postgres.render.com/tactologydb",
+                ssl: { rejectUnauthorized: false },
+                port: 5432,
+                username: "tactologydb_user",
+                password: "DNJlO081rWxEIJ4EcNUjYcbOdq0PlYUl",
+                database: "tactologydb",
                 entities: [__dirname + '/**/*.entity{.ts,.js}'],
                 synchronize: true,
+                logging: true
             }),
             auth_module_1.AuthModule,
             subdepartment_module_1.SubDepartmentModule,

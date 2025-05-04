@@ -8,7 +8,7 @@ async function bootstrap() {
     .setTitle('TactologyGlobal API')
     .setDescription('API documentation for TactologyGlobal')
     .setVersion('1.0')
-    .addBearerAuth() // Add JWT authentication if applicable
+    .addBearerAuth() 
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

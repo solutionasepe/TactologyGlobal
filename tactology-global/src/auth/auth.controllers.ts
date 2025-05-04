@@ -7,6 +7,7 @@ import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { LoginDto } from "./dto.ts/login.dto";
 import { RegisterDto } from "./dto.ts/resgister.dto";
 
+
 @Controller('auth')
 export class AuthController{
     constructor(
@@ -20,8 +21,8 @@ export class AuthController{
     @ApiResponse({ status: 201, description: 'User registered successfully' })
     @ApiResponse({ status: 400, description: 'Bad Request' })
     async register(@Body() body: RegisterDto){
-        const user =  this.userRepo.create(body);
-        return this.userRepo.save(user)
+        return  this.authservice.registerUser(body.username, body.password);
+        
     }
 
     @Post('login')

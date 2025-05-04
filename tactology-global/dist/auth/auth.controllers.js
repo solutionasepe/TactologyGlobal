@@ -29,8 +29,7 @@ let AuthController = class AuthController {
         this.userRepo = userRepo;
     }
     async register(body) {
-        const user = this.userRepo.create(body);
-        return this.userRepo.save(user);
+        return this.authservice.registerUser(body.username, body.password);
     }
     async login(body) {
         const token = await this.authservice.ValidateUser(body.username, body.password);

@@ -18,6 +18,7 @@ const jwt_1 = require("@nestjs/jwt");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const user_entity_1 = require("./user.entity");
+const bcyrpt = require("bcrypt");
 let AuthService = class AuthService {
     userRepository;
     jwtService;
@@ -27,10 +28,19 @@ let AuthService = class AuthService {
     }
     async ValidateUser(username, password) {
         const user = await this.userRepository.findOneBy({ username });
-        if (user && user.password === password) {
+        if (user && await bcyrpt.compare(password, user.password)) {
             return this.jwtService.sign({ username });
         }
         return null;
+    }
+    async hashpassword(password) {
+        return await bcyrpt.hash(password, 10);
+    }
+    async registerUser(username, password) {
+        const hashedPassword = await this.hashpassword(password);
+        const newUser = this.userRepository.create({ username, password: hashedPassword });
+        const savedUser = this.userRepository.save(newUser);
+        return savedUser;
     }
 };
 exports.AuthService = AuthService;
